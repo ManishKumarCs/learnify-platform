@@ -22,6 +22,7 @@ function addBulletsSlide(ppt, title, bullets) {
   const slide = ppt.addSlide();
   slide.addText(title, { x: 0.5, y: 0.5, w: 9, h: 0.7, fontSize: 26, bold: true, color: '203040' });
   slide.addText(bullets.map((b) => `• ${b}`).join('\n'), { x: 0.8, y: 1.4, w: 8.5, h: 4.5, fontSize: 18, color: '111111' });
+  return slide;
 }
 
 function addImageSlide(ppt, title, imgName) {
@@ -33,6 +34,7 @@ function addImageSlide(ppt, title, imgName) {
   } else {
     slide.addText('(screenshot pending)', { x: 0.5, y: 1.5, w: 9, h: 1, fontSize: 18, italic: true, color: '888888' });
   }
+  return slide;
 }
 
 function addTableSlide(ppt, title, rows) {
@@ -47,6 +49,7 @@ function addTableSlide(ppt, title, rows) {
     border: { type: 'none' },
     fill: 'F7F9FC',
   });
+  return slide;
 }
 
 function addFeatureDetailSlide(ppt, title, features, benefits) {
@@ -64,6 +67,17 @@ function addFeatureDetailSlide(ppt, title, features, benefits) {
 
   // Title
   addTitleSlide(ppt);
+
+  // Agenda
+  addBulletsSlide(ppt, 'Agenda', [
+    'Problem and Solution Overview',
+    'Architecture and Tech Stack',
+    'Features and User Benefits',
+    'Live Screens and Demo Flow',
+    'Team & Work Allocation',
+    'Progress, KPIs, Roadmap',
+    'Q&A',
+  ]);
 
   // Problem & Solution
   addBulletsSlide(ppt, 'Problem Statement', [
@@ -196,8 +210,18 @@ function addFeatureDetailSlide(ppt, title, features, benefits) {
   addImageSlide(ppt, 'Reports & Charts', 'reports.png');
   addImageSlide(ppt, 'Admin Dashboard', 'admin-dashboard.png');
 
+  // Demo Flow (referencing screenshots)
+  addBulletsSlide(ppt, 'Demo Flow', [
+    '1) Landing → explore features',
+    '2) Auth → login/signup as role',
+    '3) Student Dashboard → review modules',
+    '4) Exams → attempt and submit',
+    '5) Reports → view insights',
+    '6) Admin → manage students/exams/questions',
+  ]);
+
   // Team & Allocation table
-  addTableSlide(ppt, 'Team & Work Allocation', [
+  const teamSlide = addTableSlide(ppt, 'Team & Work Allocation', [
     [{ text: 'Name', options: { bold: true } }, { text: 'Primary Modules', options: { bold: true } }, { text: 'Responsibilities', options: { bold: true } }],
     ['Manish Kumar', 'Auth, RBAC, Security, Middleware', 'Auth flows, JWT, route protection, RBAC guards, security utils'],
     ['Akash Kumar', 'Exam Engine, Reports, ML', 'Exam attempts, scoring, ML analysis, report visuals'],
@@ -206,6 +230,71 @@ function addFeatureDetailSlide(ppt, title, features, benefits) {
     ['Amit Saraswat', 'QA, CI, Docs, Seed', 'Test data, CI workflows, docs, .env.example'],
     ['Somdatt Verma', 'UI Polish, A11y, Content', 'Responsive polish, accessibility, assets'],
   ]);
+  if (teamSlide.addNotes) teamSlide.addNotes('Each member presents their module responsibilities and contributions as per the table.');
+
+  // Member slides with notes
+  const memberSlides = [
+    {
+      title: 'Manish Kumar — Auth & Security',
+      bullets: [
+        'JWT issuance/verification',
+        'RBAC policies and route guards',
+        'Middleware protection',
+        'Security utilities and logging',
+      ],
+      notes: 'Explain auth flow, token lifecycle, RBAC rules, and how middleware protects pages and APIs.',
+    },
+    {
+      title: 'Akash Kumar — Exam Engine & Reports',
+      bullets: [
+        'Exam attempt lifecycle and state restore',
+        'Scoring hooks and models',
+        'Charts and report generation',
+        'ML integration plan',
+      ],
+      notes: 'Walk through attempt → submit → analyze; highlight data structures and report visuals.',
+    },
+    {
+      title: 'Manoj Kumar — Admin & Email',
+      bullets: [
+        'CRUD: students, exams, questions',
+        'Admin dashboards and settings',
+        'Email notifications (registration/results)',
+      ],
+      notes: 'Show admin flows and when emails are triggered for lifecycle events.',
+    },
+    {
+      title: 'Shiva Jadoun — Student UX',
+      bullets: [
+        'Dashboard and learning paths',
+        'Responsive components and states',
+        'Navigation & feedback (toasts/alerts)',
+      ],
+      notes: 'Emphasize ease of navigation and responsiveness across devices.',
+    },
+    {
+      title: 'Amit Saraswat — QA & CI',
+      bullets: [
+        'Seed/test data preparation',
+        'Lint/build workflows on PRs',
+        'Docs and .env.example maintenance',
+      ],
+      notes: 'Highlight reliability: automated checks, minimal tests, and documentation quality.',
+    },
+    {
+      title: 'Somdatt Verma — UI Polish & A11y',
+      bullets: [
+        'Responsive polish and theming',
+        'Accessibility checks',
+        'Content assets management',
+      ],
+      notes: 'Show before/after polish screens; mention a11y considerations.',
+    },
+  ];
+  for (const m of memberSlides) {
+    const s = addBulletsSlide(ppt, m.title, m.bullets);
+    if (s.addNotes && m.notes) s.addNotes(m.notes);
+  }
 
   // Progress vs Next Steps
   addTableSlide(ppt, 'Progress vs. Next Steps', [
@@ -221,6 +310,48 @@ function addFeatureDetailSlide(ppt, title, features, benefits) {
     ['Testing & CI', 'Pending', 'Add workflows, minimal tests, lint'],
   ]);
 
+  // KPIs & Success Metrics
+  addTableSlide(ppt, 'KPIs & Success Metrics', [
+    [{ text: 'Metric', options: { bold: true } }, { text: 'Target', options: { bold: true } }, { text: 'Why It Matters', options: { bold: true } }],
+    ['Monthly Active Users', '500+', 'Adoption and engagement'],
+    ['Exam Completion Rate', '≥ 75%', 'Stickiness and flow quality'],
+    ['Avg. Score Improvement', '+10%', 'Learning impact'],
+    ['Report Views per User', '≥ 3', 'Insight consumption'],
+    ['7-day Retention', '≥ 40%', 'Habit formation'],
+  ]);
+
+  // Timeline / Roadmap
+  addTableSlide(ppt, 'Timeline', [
+    [{ text: 'Phase', options: { bold: true } }, { text: 'Scope', options: { bold: true } }, { text: 'Window', options: { bold: true } }],
+    ['Phase 1', 'Auth, UI scaffolding, basic exams', 'Week 1–2'],
+    ['Phase 2', 'Admin CRUD, student flows, reports UI', 'Week 3–4'],
+    ['Phase 3', 'ML integration, email, polish & CI', 'Week 5–6'],
+  ]);
+
+  // Risks & Mitigations
+  addTableSlide(ppt, 'Risks & Mitigations', [
+    [{ text: 'Risk', options: { bold: true } }, { text: 'Impact', options: { bold: true } }, { text: 'Mitigation', options: { bold: true } }],
+    ['Data security', 'High', 'RBAC, validation, secure storage'],
+    ['Exam integrity', 'Medium', 'Timers, session checks, proctoring roadmap'],
+    ['Scale/performance', 'Medium', 'Caching, indexes, monitoring'],
+    ['Email delivery', 'Low', 'Provider retries, fallbacks'],
+    ['ML data quality', 'Medium', 'Validation & continuous evaluation'],
+  ]);
+
+  // Testing & CI
+  addBulletsSlide(ppt, 'Testing & CI', [
+    'ESLint/type checks on PRs',
+    'Build and smoke tests',
+    'Planned e2e for key flows',
+  ]);
+
+  // Accessibility & Performance
+  addBulletsSlide(ppt, 'Accessibility & Performance', [
+    'Keyboard navigation and ARIA labels',
+    'Color contrast and focus states',
+    'Lighthouse performance targets',
+  ]);
+
   // Roadmap & Demo
   addBulletsSlide(ppt, 'Roadmap & Deployment', [
     'Implement full auth backend and RBAC guards',
@@ -228,6 +359,13 @@ function addFeatureDetailSlide(ppt, title, features, benefits) {
     'Integrate ML analysis end-to-end',
     'Add CI, tests, and deployment (Vercel)',
     'Prepare demo walkthrough and documentation',
+  ]);
+
+  // Summary & Ask
+  addBulletsSlide(ppt, 'Summary & Ask', [
+    'Delivering a secure, insightful e-learning experience',
+    'Clear roadmap and measurable KPIs',
+    'Feedback on ML scope and deployment plan appreciated',
   ]);
 
   try {
