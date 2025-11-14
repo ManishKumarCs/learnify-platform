@@ -49,6 +49,15 @@ function addTableSlide(ppt, title, rows) {
   });
 }
 
+function addFeatureDetailSlide(ppt, title, features, benefits) {
+  const slide = ppt.addSlide();
+  slide.addText(title, { x: 0.5, y: 0.4, w: 9, h: 0.7, fontSize: 26, bold: true, color: '203040' });
+  slide.addText('What it includes', { x: 0.6, y: 1.2, w: 4.3, h: 0.5, fontSize: 18, bold: true, color: '1a2b49' });
+  slide.addText(features.map((b) => `• ${b}`).join('\n'), { x: 0.6, y: 1.7, w: 4.3, h: 4.0, fontSize: 16, color: '111111' });
+  slide.addText('How it helps users', { x: 5.1, y: 1.2, w: 4.3, h: 0.5, fontSize: 18, bold: true, color: '1a2b49' });
+  slide.addText(benefits.map((b) => `• ${b}`).join('\n'), { x: 5.1, y: 1.7, w: 4.3, h: 4.0, fontSize: 16, color: '111111' });
+}
+
 (async () => {
   const ppt = new PptxGenJS();
   ppt.layout = 'LAYOUT_16x9';
@@ -80,6 +89,89 @@ function addTableSlide(ppt, title, rows) {
     'Next.js, React, TypeScript, Tailwind CSS, shadcn/ui',
     'Recharts for visualizations',
     'JWT auth, Node services, MongoDB (planned)',
+  ]);
+
+  // Feature details with user benefits
+  addFeatureDetailSlide(ppt, 'Authentication & RBAC', [
+    'Signup/Login with form validation',
+    'JWT issuance/verification',
+    'Role-based route protection (Admin/Student)',
+    'Secure middleware for API and pages',
+  ], [
+    'Keeps accounts secure and scoped to the right role',
+    'Smooth sign-in flow builds trust and speed',
+    'Prevents unauthorized access and data leaks',
+    'Auditable, maintainable security boundary',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'Exam Engine', [
+    'Timed exams with progress tracking',
+    'Question navigation and state restore',
+    'Auto scoring hooks and persistence models',
+    'Practice sections (Aptitude/DSA/CS/Reasoning)',
+  ], [
+    'Realistic exam experience boosts readiness',
+    'No loss on refresh or disconnect',
+    'Fast feedback for learning loops',
+    'Targeted practice by category',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'Reports & Analytics', [
+    'Charts and breakdowns by category',
+    'Attempt history and comparisons',
+    'Strength/weakness highlights',
+    'Export-ready summary view',
+  ], [
+    'Visual feedback makes performance obvious',
+    'Shows progress over time for motivation',
+    'Helps plan next steps efficiently',
+    'Easy to share with mentors/admins',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'Student Experience', [
+    'Personalized dashboard and learning paths',
+    'Responsive UI with accessible components',
+    'Notifications and toasts for key actions',
+    'Content library and practice modules',
+  ], [
+    'Clear next actions reduce confusion',
+    'Works great on mobile and desktop',
+    'Keeps users informed without friction',
+    'One place for study and practice',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'Admin Tools', [
+    'CRUD for students, exams, questions',
+    'Role management and settings',
+    'Bulk operations and email triggers',
+    'Dashboards for oversight',
+  ], [
+    'Saves time managing large cohorts',
+    'Reduces human error through workflows',
+    'Automates communication at scale',
+    'Quickly spots issues and trends',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'Email & Notifications', [
+    'Registration and password reset emails',
+    'Result and report notifications',
+    'Provider-agnostic setup (SendGrid/Mailgun)',
+  ], [
+    'Users stay updated on critical actions',
+    'Encourages return and course completion',
+    'Easy to switch providers when needed',
+  ]);
+
+  addFeatureDetailSlide(ppt, 'ML Personalization (Planned)', [
+    'Category-wise performance analytics',
+    'Level classification (Beginner/Intermediate/Advanced)',
+    'Personalized learning recommendations',
+    'Adaptive learning path generation',
+  ], [
+    'Improves outcomes with tailored insights',
+    'Focuses effort where it matters most',
+    'Provides clear guidance after every attempt',
+    'Saves time by removing guesswork',
   ]);
 
   // Security & ML
@@ -138,6 +230,17 @@ function addTableSlide(ppt, title, rows) {
     'Prepare demo walkthrough and documentation',
   ]);
 
-  await ppt.writeFile({ fileName: OUT_PPT });
-  console.log(`Generated PPT: ${OUT_PPT}`);
+  try {
+    await ppt.writeFile({ fileName: OUT_PPT });
+    console.log(`Generated PPT: ${OUT_PPT}`);
+  } catch (err) {
+    if (err && err.code === 'EBUSY') {
+      const ts = new Date().toISOString().replace(/[:.]/g, '-');
+      const alt = OUT_PPT.replace(/\.pptx$/, `-${ts}.pptx`);
+      await ppt.writeFile({ fileName: alt });
+      console.log(`Output file was locked. Generated alternative PPT: ${alt}`);
+    } else {
+      throw err;
+    }
+  }
 })();
