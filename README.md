@@ -251,3 +251,55 @@ For support, email support@edulearn.com or open an issue on GitHub.
 - UI components from shadcn/ui
 - Charts powered by Recharts
 - Inspired by modern e-learning platforms
+
+## Team and Work Allocation
+
+This section documents the team members, their academic CPI, assigned responsibilities, and current progress. Assignments are balanced so higher CPI members own complex, core modules, while others focus on integration, testing, and quality to ensure reliable delivery.
+
+### Team Roster
+
+| Roll No. | Sec | Name | CPI |
+|---|---|---|---|
+| 2315990033 | A 75 | Manish Kumar | 8.53 |
+| 2315990006 | A 74 | Akash Kumar | 8.53 |
+| 2315990035 | G 75 | Manoj Kumar | 7.48 |
+| 2315990062 | H 75 | Shiva Jadoun | 7.39 |
+| 2215000217 | S 11 | Amit Saraswat | 6.18 |
+| 201500699 | T 01 | Somdatt Verma | 6.05 |
+
+### Work Allocation
+
+| Name | Primary Modules | Key Responsibilities |
+|---|---|---|
+| Manish Kumar | Authentication, RBAC, Security, Middleware | Implement auth flows and JWT handling, protect routes via `middleware.ts`, enforce RBAC on API routes, harden security utilities in `lib/security.ts` and logging in `lib/logger.ts`. |
+| Akash Kumar | Exam Engine, Reports, ML Integration | Build exam attempt flows (`app/student/exam/[id]`), scoring and persistence models, integrate analysis from `lib/ml-analysis.ts`, generate visual reports in `app/student/reports/*`. |
+| Manoj Kumar | Admin Dashboard CRUD, Email | Implement admin CRUD for students/exams/questions under `app/admin/*`, wire email notifications via `lib/email-service.ts` and `lib/mail.ts`. |
+| Shiva Jadoun | Student Dashboard & UX | Complete student dashboard and profile (`app/student/*`), learning paths, integrate UI components from `components/ui/*`, ensure responsive UX. |
+| Amit Saraswat | QA, Test Data, CI | Prepare seed/test data, write basic tests where applicable, set up CI (GitHub Actions) for lint/build, maintain documentation and `.env.example`. |
+| Somdatt Verma | UI Polish, Accessibility, Content | Refine styling and responsiveness, a11y checks, image/content population in `public/`, assist with component cleanup and bug bashes. |
+
+### Current Progress Snapshot
+
+| Area | Status | Notes |
+|---|---|---|
+| Project scaffolding (Next.js, TS, Tailwind, shadcn/ui) | Completed | App routes and UI components are present. |
+| Landing page | Completed | `app/page.tsx` and landing components implemented. |
+| Auth pages (UI) | Completed | Login/Signup pages exist; backend auth wiring to be finalized. |
+| Middleware & RBAC | In Progress | `middleware.ts` present; refine role checks and protected routes. |
+| Student dashboard & modules | In Progress | Pages under `app/student/*` scaffolded; needs data wiring. |
+| Admin dashboard | In Progress | Admin components exist; CRUD actions to be completed. |
+| Reports & charts | In Progress | UI and chart components exist; connect to analysis and models. |
+| ML analysis integration | Pending | Functions scaffolded in `lib/ml-analysis.ts`; requires data + flow. |
+| Email integration | Pending | `lib/email-service.ts` and related files prepared; add provider keys. |
+| Testing/CI | Pending | Set up workflows, add minimal tests and lint checks. |
+
+### Near-Term Tasks by Member
+
+- Manish Kumar: Secure auth endpoints, finalize JWT issuance/verification, RBAC guards.
+- Akash Kumar: Exam attempt save/restore, scoring logic, connect reports to ML outputs.
+- Manoj Kumar: Admin CRUD APIs and pages (Students/Exams/Questions), email triggers.
+- Shiva Jadoun: Hook student pages to APIs, dashboards, and learning path UI states.
+- Amit Saraswat: Create `.env.example`, add GitHub Actions workflow, populate seed data.
+- Somdatt Verma: Responsive polish, a11y passes, content assets, and bug triage.
+
+Note: You can track issues and PRs per module for clarity. Open issues should reference the owner’s name and module.
