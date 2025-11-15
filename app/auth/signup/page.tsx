@@ -144,7 +144,7 @@ export default function SignUpPage() {
               id="firstName"
               name="firstName"
               type="text"
-              placeholder="John"
+              placeholder="Enter your first name"
               value={formData.firstName}
               onChange={handleChange}
               disabled={loading}
@@ -159,7 +159,7 @@ export default function SignUpPage() {
               id="lastName"
               name="lastName"
               type="text"
-              placeholder="Doe"
+              placeholder="Enter your last name"
               value={formData.lastName}
               onChange={handleChange}
               disabled={loading}
@@ -176,7 +176,7 @@ export default function SignUpPage() {
             id="email"
             name="email"
             type="email"
-            placeholder="john@example.com"
+            placeholder="Enter your email address"
             value={formData.email}
             onChange={handleChange}
             disabled={loading}
@@ -188,27 +188,27 @@ export default function SignUpPage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="collegeName" className="text-sm font-medium">College Name</Label>
-            <Input id="collegeName" name="collegeName" type="text" placeholder="ABC Institute" value={formData.collegeName} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="collegeName" name="collegeName" type="text" placeholder="Enter your college name" value={formData.collegeName} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="universityRollNumber" className="text-sm font-medium">University Roll Number</Label>
-            <Input id="universityRollNumber" name="universityRollNumber" type="text" placeholder="21UCS1234" value={formData.universityRollNumber} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="universityRollNumber" name="universityRollNumber" type="text" placeholder="Enter your university roll number" value={formData.universityRollNumber} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="section" className="text-sm font-medium">Section</Label>
-            <Input id="section" name="section" type="text" placeholder="A" value={formData.section} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="section" name="section" type="text" placeholder="Enter your section" value={formData.section} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="classRollNumber" className="text-sm font-medium">Class Roll Number</Label>
-            <Input id="classRollNumber" name="classRollNumber" type="text" placeholder="32" value={formData.classRollNumber} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="classRollNumber" name="classRollNumber" type="text" placeholder="Enter your class roll number" value={formData.classRollNumber} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="branch" className="text-sm font-medium">Branch</Label>
-            <Input id="branch" name="branch" type="text" placeholder="CSE" value={formData.branch} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="branch" name="branch" type="text" placeholder="Enter your branch" value={formData.branch} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="course" className="text-sm font-medium">Course</Label>
-            <Input id="course" name="course" type="text" placeholder="B.Tech" value={formData.course} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="course" name="course" type="text" placeholder="Enter your course" value={formData.course} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
         </div>
 
@@ -216,11 +216,11 @@ export default function SignUpPage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="leetcodeId" className="text-sm font-medium">LeetCode ID</Label>
-            <Input id="leetcodeId" name="leetcodeId" type="text" placeholder="johndoe123" value={formData.leetcodeId} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="leetcodeId" name="leetcodeId" type="text" placeholder="Enter your LeetCode ID" value={formData.leetcodeId} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="githubId" className="text-sm font-medium">GitHub ID</Label>
-            <Input id="githubId" name="githubId" type="text" placeholder="johndoe" value={formData.githubId} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
+            <Input id="githubId" name="githubId" type="text" placeholder="Enter your GitHub ID" value={formData.githubId} onChange={handleChange} disabled={loading} className="border-blue-200 focus:border-blue-500" />
           </div>
         </div>
 
@@ -232,7 +232,7 @@ export default function SignUpPage() {
             id="password"
             name="password"
             type="password"
-            placeholder="••••••••"
+            placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
             disabled={loading}
@@ -249,7 +249,7 @@ export default function SignUpPage() {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
-            placeholder="••••••••"
+            placeholder="Re-enter your password"
             value={formData.confirmPassword}
             onChange={handleChange}
             disabled={loading}

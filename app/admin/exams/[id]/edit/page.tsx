@@ -30,11 +30,11 @@ export default function EditExamPage() {
   const [formData, setFormData] = useState<ExamData | null>(null)
 
   const allStudents = [
-    { id: "1", name: "John Doe", email: "john@example.com" },
-    { id: "2", name: "Jane Smith", email: "jane@example.com" },
-    { id: "3", name: "Mike Johnson", email: "mike@example.com" },
-    { id: "4", name: "Sarah Williams", email: "sarah@example.com" },
-    { id: "5", name: "Tom Brown", email: "tom@example.com" },
+    { id: "1", name: "Student One", email: "student1@example.com" },
+    { id: "2", name: "Student Two", email: "student2@example.com" },
+    { id: "3", name: "Student Three", email: "student3@example.com" },
+    { id: "4", name: "Student Four", email: "student4@example.com" },
+    { id: "5", name: "Student Five", email: "student5@example.com" },
   ]
 
   useEffect(() => {

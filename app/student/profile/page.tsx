@@ -11,13 +11,13 @@ import { useToast } from "@/components/ui/use-toast"
 
 export default function StudentProfilePage() {
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john@example.com",
-    academicBackground: "B.Tech Computer Science",
-    targetExams: "Aptitude, Programming",
-    strengths: "Problem Solving, Algorithms",
-    weaknesses: "Data Structures, System Design",
+    firstName: "",
+    lastName: "",
+    email: "",
+    academicBackground: "",
+    targetExams: "",
+    strengths: "",
+    weaknesses: "",
     collegeName: "",
     universityRollNumber: "",
     section: "",
@@ -172,6 +172,7 @@ export default function StudentProfilePage() {
               <Input
                 id="firstName"
                 name="firstName"
+                placeholder="Enter your first name"
                 value={formData.firstName}
                 onChange={handleChange}
                 className="border-blue-200"
@@ -185,6 +186,7 @@ export default function StudentProfilePage() {
               <Input
                 id="lastName"
                 name="lastName"
+                placeholder="Enter your last name"
                 value={formData.lastName}
                 onChange={handleChange}
                 className="border-blue-200"
@@ -196,7 +198,7 @@ export default function StudentProfilePage() {
             <Label htmlFor="email" className="text-sm font-medium">
               Email Address
             </Label>
-            <Input id="email" name="email" type="email" value={formData.email} disabled className="border-blue-200" />
+            <Input id="email" name="email" type="email" placeholder="Your registered email" value={formData.email} disabled className="border-blue-200" />
           </div>
 
           <div className="space-y-2">
@@ -318,7 +320,7 @@ export default function StudentProfilePage() {
               <Input
                 id="leetcodeId"
                 name="leetcodeId"
-                placeholder="e.g., johndoe123"
+                placeholder="Enter your LeetCode ID"
                 value={formData.leetcodeId}
                 onChange={handleChange}
                 className="border-blue-200"
@@ -331,7 +333,7 @@ export default function StudentProfilePage() {
               <Input
                 id="githubId"
                 name="githubId"
-                placeholder="e.g., johndoe"
+                placeholder="Enter your GitHub ID"
                 value={formData.githubId}
                 onChange={handleChange}
                 className="border-blue-200"

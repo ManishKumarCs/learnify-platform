@@ -25,7 +25,7 @@ export default function CommunityPage() {
     {
       id: "1",
       title: "How to solve dynamic programming problems efficiently?",
-      author: "John Doe",
+      author: "Student Member",
       category: "Programming",
       replies: 12,
       likes: 45,
@@ -36,7 +36,7 @@ export default function CommunityPage() {
     {
       id: "2",
       title: "Best resources for learning Data Structures",
-      author: "Jane Smith",
+      author: "Community Member",
       category: "Resources",
       replies: 8,
       likes: 32,
