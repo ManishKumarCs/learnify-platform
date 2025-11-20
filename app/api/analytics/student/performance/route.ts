@@ -10,7 +10,11 @@ export async function GET(req: NextRequest) {
     const payload = token ? await verifyToken(token) : null
     if (!payload?.id) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
 
-    const userId = String(payload.id)
+    const url = new URL(req.url)
+    const requestedUserId = url.searchParams.get('userId')
+
+    // Admins can request analytics for any student via userId; students only see their own
+    const userId = requestedUserId && payload.role === 'admin' ? requestedUserId : String(payload.id)
     const history = await loadAllAttempts(userId)
 
     const timeline = buildTimeline(history.exams || [])

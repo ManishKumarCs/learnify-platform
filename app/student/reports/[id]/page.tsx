@@ -80,13 +80,20 @@ export default function ReportPage() {
   }
 
   if (loading) {
-    return <div className="p-6">Loading...</div>
+    return (
+      <div className="p-6 min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading your result...</p>
+        </div>
+      </div>
+    )
   }
 
   if (error || !report) {
     return (
-      <div className="p-6 flex items-center justify-center min-h-screen">
-        <Card className="p-8 text-center">
+      <div className="p-6 flex items-center justify-center min-h-screen bg-slate-50">
+        <Card className="p-8 text-center rounded-2xl shadow-sm">
           <h2 className="text-xl font-semibold text-foreground mb-2">Report Not Found</h2>
           <p className="text-muted-foreground mb-4">{error || "The report you're looking for doesn't exist."}</p>
           <Button onClick={() => router.push("/student/reports")} className="bg-blue-600 hover:bg-blue-700">
@@ -98,54 +105,71 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4 font-medium"
-          >
-            <ArrowLeft size={18} />
-            Back
-          </button>
-          <h1 className="text-3xl font-bold text-foreground">Assignment #{report.assignmentId}</h1>
-          <p className="text-muted-foreground mt-1">Detailed Performance Analysis</p>
+    <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
+      <Card className="p-5 md:p-6 rounded-2xl shadow-sm bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 text-white">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <button
+              onClick={() => router.back()}
+              className="inline-flex items-center gap-2 text-sm text-blue-100 hover:text-white mb-3 font-medium"
+            >
+              <ArrowLeft size={18} />
+              Back to reports
+            </button>
+            <h1 className="text-2xl md:text-3xl font-bold">Assignment #{report.assignmentId}</h1>
+            <p className="text-sm md:text-base text-blue-100 mt-1">Detailed performance analysis and AI-powered insights.</p>
+          </div>
+          <div className="flex flex-col items-start md:items-end gap-2 text-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1">
+              <span className="h-2 w-2 rounded-full bg-emerald-300" />
+              <span className="font-medium">{performanceComment(report.score)}</span>
+            </span>
+            <div className="flex gap-3 text-xs text-blue-100">
+              <span>Total Questions: {report.totalQuestions}</span>
+              <span>|</span>
+              <span>Correct: {report.correctAnswers}</span>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-1">
+              <Button
+                size="sm"
+                onClick={() => router.push(`/student/reports/${reportId}/review`)}
+                className="bg-white text-blue-700 hover:bg-blue-50 flex items-center gap-2 rounded-full px-4 py-1 h-8"
+              >
+                <ListChecks size={16} />
+                Review Questions
+              </Button>
+              <Button
+                size="sm"
+                className="bg-white/10 hover:bg-white/20 text-white flex items-center gap-2 rounded-full px-4 py-1 h-8"
+              >
+                <Download size={16} />
+                Download
+              </Button>
+            </div>
+          </div>
         </div>
-
-      <div className="flex items-center gap-3">
-        <Button onClick={() => router.push(`/student/reports/${reportId}/review`)} className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 flex items-center gap-2">
-          <ListChecks size={18} />
-          Review Questions
-        </Button>
-        <Button className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 flex items-center gap-2">
-          <Download size={18} />
-          Download Report
-        </Button>
-      </div>
-
-        
-      </div>
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-0">
+        <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-0 rounded-2xl shadow-sm">
           <p className="text-sm text-muted-foreground font-medium">Your Score</p>
           <p className="text-4xl font-bold text-blue-600 mt-2">{report.score}%</p>
           <p className="text-xs text-muted-foreground mt-2">{performanceComment(report.score)}</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-0">
+        <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-0 rounded-2xl shadow-sm">
           <p className="text-sm text-muted-foreground font-medium">Correct Answers</p>
           <p className="text-4xl font-bold text-green-600 mt-2">{report.correctAnswers}/{report.totalQuestions}</p>
           <p className="text-xs text-muted-foreground mt-2">Questions Answered</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-0">
+        <Card className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-0 rounded-2xl shadow-sm">
           <p className="text-sm text-muted-foreground font-medium">Category</p>
           <p className="text-2xl font-bold text-purple-600 mt-2">{report.category || '—'}</p>
           <p className="text-xs text-muted-foreground mt-2">Exam Type</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-0">
+        <Card className="p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-0 rounded-2xl shadow-sm">
           <p className="text-sm text-muted-foreground font-medium">Percentile</p>
           <p className="text-4xl font-bold text-orange-600 mt-2">{typeof (report as any).percentile === 'number' ? ordinal((report as any).percentile) : (typeof (report as any).analysis?.percentile === 'number' ? ordinal((report as any).analysis.percentile) : '—')}</p>
           <p className="text-xs text-muted-foreground mt-2">Among All Students</p>
@@ -154,7 +178,7 @@ export default function ReportPage() {
 
       {/* ML Insights */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="p-6 border-blue-200">
+        <Card className="p-6 border-blue-200 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-2">Predictions</h2>
           <p className="text-sm text-muted-foreground">Predicted Next Score</p>
           <p className="text-3xl font-bold text-blue-600 mt-2">
@@ -166,7 +190,7 @@ export default function ReportPage() {
           </p>
         </Card>
 
-        <Card className="p-6 border-amber-200">
+        <Card className="p-6 border-amber-200 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-4">Weak Topics</h2>
           <ul className="space-y-2">
             {(report.analysis?.weakTopics as any[] | undefined)?.slice(0,6).map((w, idx) => (
@@ -180,7 +204,7 @@ export default function ReportPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="p-6">
+        <Card className="p-6 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-4">Category Performance</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={(report.analysis?.categoryScores as any[]) || []}>
@@ -213,7 +237,7 @@ export default function ReportPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="p-6 border-green-200">
+        <Card className="p-6 border-green-200 rounded-2xl shadow-sm bg-white/90">
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp size={20} className="text-green-600" />
             <h2 className="text-lg font-semibold text-foreground">Your Strengths</h2>
@@ -228,7 +252,7 @@ export default function ReportPage() {
           </ul>
         </Card>
 
-        <Card className="p-6 border-orange-200">
+        <Card className="p-6 border-orange-200 rounded-2xl shadow-sm bg-white/90">
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb size={20} className="text-orange-600" />
             <h2 className="text-lg font-semibold text-foreground">Areas to Improve</h2>
@@ -244,7 +268,7 @@ export default function ReportPage() {
         </Card>
       </div>
 
-      <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
+      <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 rounded-2xl shadow-sm">
         <h2 className="text-lg font-semibold text-foreground mb-4">Personalized Recommendations</h2>
         <div className="space-y-3">
           {report.recommendations.map((rec: string, idx: number) => (

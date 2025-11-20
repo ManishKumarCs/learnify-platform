@@ -2,6 +2,7 @@
 
 import useSWR from "swr"
 import { Card } from "@/components/ui/card"
+import Link from "next/link"
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 import { Users, FileText, TrendingUp, Award } from "lucide-react"
 
@@ -26,30 +27,53 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Welcome back! Here's your platform overview.</p>
-      </div>
+    <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
+      <Card className="p-5 md:p-6 rounded-2xl shadow-sm bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 text-white">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold">Admin Analytics Dashboard</h1>
+            <p className="text-sm md:text-base text-blue-100 mt-1">Monitor student activity, exam performance, and anomalies in real time.</p>
+          </div>
+          <div className="flex flex-col items-start md:items-end gap-2 text-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1">
+              <span className="h-2 w-2 rounded-full bg-emerald-300" />
+              <span className="font-medium">Platform healthy</span>
+            </span>
+            <div className="flex gap-3 text-xs text-blue-100">
+              <span>Students: {totals.totalStudents ?? '-'}</span>
+              <span>|</span>
+              <span>Active exams: {totals.activeExams ?? '-'}</span>
+            </div>
+          </div>
+        </div>
+      </Card>
 
-      {isLoading && <p>Loading...</p>}
-      {error && <p className="text-red-500">Failed to load analytics</p>}
+      {isLoading && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="h-4 w-4 border-2 border-blue-600 border-b-transparent rounded-full animate-spin" />
+          Loading analytics...
+        </div>
+      )}
+      {error && <p className="text-sm text-red-500">Failed to load analytics</p>}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {dashboardStats.map((stat, index) => {
           const Icon = stat.icon
           return (
-            <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+            <Card
+              key={index}
+              className="p-5 bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between"
+            >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
-                  <p className="text-3xl font-bold text-foreground mt-2">{stat.value}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-2">{stat.value}</p>
                   {totals.activeUsers !== undefined && stat.label === 'Total Students' && (
-                    <p className="text-xs text-green-600 font-medium mt-2">Active users: {totals.activeUsers}</p>
+                    <p className="text-xs text-emerald-600 font-medium mt-2">Active users: {totals.activeUsers}</p>
                   )}
                 </div>
-                <div className="p-3 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-lg">
-                  <Icon size={24} className="text-blue-600" />
+                <div className="p-3 bg-blue-50 rounded-xl">
+                  <Icon size={22} className="text-blue-600" />
                 </div>
               </div>
             </Card>
@@ -58,7 +82,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2 p-6">
+        <Card className="lg:col-span-2 p-6 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-4">Growth Trend</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={growth}>
@@ -79,7 +103,7 @@ export default function AdminDashboard() {
           </ResponsiveContainer>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-4">Category Performance</h2>
           <div className="space-y-4">
             {performance.map((item: any, index: number) => (
@@ -101,7 +125,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="p-6">
+        <Card className="p-6 rounded-2xl shadow-sm bg-white/90">
           <h2 className="text-lg font-semibold text-foreground mb-4">Readiness Distribution</h2>
           <div className="space-y-4">
             {readiness.map((r: any, idx: number) => (
@@ -126,10 +150,12 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-foreground mb-4">Top At-Risk Students</h2>
           <div className="space-y-3">
             {atRisk.map((u: any, idx: number) => (
-              <div key={idx} className="flex items-center justify-between p-3 border border-border rounded-md">
-                <div className="text-sm text-foreground">{u.userId}</div>
-                <div className="text-xs font-semibold text-red-600">{Math.round((u.probability || 0) * 100)}% pass probability</div>
-              </div>
+              <Link key={idx} href={`/admin/students/${encodeURIComponent(u.userId)}`}>
+                <div className="flex items-center justify-between p-3 border border-border rounded-md hover:bg-muted/70 transition-colors cursor-pointer">
+                  <div className="text-sm text-foreground">{u.userId}</div>
+                  <div className="text-xs font-semibold text-red-600">{Math.round((u.probability || 0) * 100)}% pass probability</div>
+                </div>
+              </Link>
             ))}
             {atRisk.length === 0 && <p className="text-sm text-muted-foreground">No at-risk students identified.</p>}
           </div>

@@ -60,6 +60,12 @@ interface StudentData {
   }
 }
 
+type PerfAnalytics = {
+  predictedScore?: number
+  passProbability?: number
+  weakTopics?: { topic: string; domain?: string; accuracy: number; count: number }[]
+}
+
 export default function StudentDetailsPage() {
   const params = useParams()
   const studentId = params.id as string
@@ -71,13 +77,18 @@ export default function StudentDetailsPage() {
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState<any>({})
   const [loading, setLoading] = useState(true)
+  const [perfAnalytics, setPerfAnalytics] = useState<PerfAnalytics | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch(`/api/admin/students/${encodeURIComponent(studentId)}`, { cache: "no-store" })
+        const [res, perfRes] = await Promise.all([
+          fetch(`/api/admin/students/${encodeURIComponent(studentId)}`, { cache: "no-store" }),
+          fetch(`/api/analytics/student/performance?userId=${encodeURIComponent(studentId)}`, { cache: "no-store" }),
+        ])
         const data = await res.json()
+        const perf = await perfRes.json().catch(() => null)
         if (!res.ok || !data.ok) throw new Error(data.message || "Failed to load student")
 
         // Set profile
@@ -126,6 +137,14 @@ export default function StudentDetailsPage() {
 
         setExamReports(reports)
         setSelectedReport(reports[0] || null)
+
+        if (perf && perf.ok) {
+          setPerfAnalytics({
+            predictedScore: typeof perf.predictedScore === 'number' ? perf.predictedScore : undefined,
+            passProbability: typeof perf.passProbability === 'number' ? perf.passProbability : undefined,
+            weakTopics: Array.isArray(perf.weakTopics) ? perf.weakTopics : [],
+          })
+        }
       } catch (e) {
         // ignore, fallback will show not found
       } finally {

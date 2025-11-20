@@ -362,7 +362,7 @@ export default function StudentProfilePage() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="strengths" className="text-sm font-medium">
-                Your Strengths
+                Your Strengths (optional)
               </Label>
               <textarea
                 id="strengths"
@@ -377,7 +377,7 @@ export default function StudentProfilePage() {
 
             <div className="space-y-2">
               <Label htmlFor="weaknesses" className="text-sm font-medium">
-                Areas to Improve
+                Areas to Improve (optional)
               </Label>
               <textarea
                 id="weaknesses"

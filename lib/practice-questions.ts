@@ -1,3 +1,5 @@
+import { CS_QUESTIONS } from "./cs-data"
+
 export type PracticeItem = { question: string; options: string[]; answerIndex: number; explanation: string; subtopic: string }
 export type PracticeBank = Record<string, PracticeItem[]>
 
@@ -8,6 +10,8 @@ export const PRACTICE_SECTIONS = [
   'Cybersecurity',
   'Cloud Computing',
   'Web/Mobile Development',
+  'Technical Quiz',
+  'Technical Quiz 2',
 ] as const
 
 export const PRACTICE_QUESTIONS: PracticeBank = {
@@ -83,4 +87,18 @@ export const PRACTICE_QUESTIONS: PracticeBank = {
     { question: 'Web accessibility standard:', options: ['WAI-ARIA','ACID3','PNG','HL7'], answerIndex: 0, explanation: 'WAI-ARIA adds accessible semantics.', subtopic: 'Accessibility' },
     { question: 'SQL injection prevention on server:', options: ['Prepared statements','Frontend validation','Base64','Minify JS'], answerIndex: 0, explanation: 'Always use parameterized queries.', subtopic: 'Security' },
   ],
+  'Technical Quiz': CS_QUESTIONS.technical.map((q) => ({
+    question: q.question,
+    options: q.options,
+    answerIndex: Math.max(0, q.options.indexOf(q.answer)),
+    explanation: q.explanation || '',
+    subtopic: q.subtopic || 'Technical',
+  })),
+  'Technical Quiz 2': CS_QUESTIONS.technical2.map((q) => ({
+    question: q.question,
+    options: q.options,
+    answerIndex: Math.max(0, q.options.indexOf(q.answer)),
+    explanation: q.explanation || '',
+    subtopic: q.subtopic || 'Technical',
+  })),
 }

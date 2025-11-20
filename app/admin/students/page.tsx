@@ -84,12 +84,12 @@ export default function StudentsPage() {
             />
           </div>
           <div className="flex gap-3">
-            <Select value={branch} onValueChange={(v) => { setPage(1); setBranch(v) }}>
+            <Select value={branch || "all"} onValueChange={(v) => { setPage(1); setBranch(v === "all" ? "" : v) }}>
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Branch" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Branches</SelectItem>
+                <SelectItem value="all">All Branches</SelectItem>
                 <SelectItem value="CSE">CSE</SelectItem>
                 <SelectItem value="ECE">ECE</SelectItem>
                 <SelectItem value="ME">ME</SelectItem>
@@ -97,24 +97,24 @@ export default function StudentsPage() {
                 <SelectItem value="IT">IT</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={course} onValueChange={(v) => { setPage(1); setCourse(v) }}>
+            <Select value={course || "all"} onValueChange={(v) => { setPage(1); setCourse(v === "all" ? "" : v) }}>
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Course" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Courses</SelectItem>
+                <SelectItem value="all">All Courses</SelectItem>
                 <SelectItem value="B.Tech">B.Tech</SelectItem>
                 <SelectItem value="M.Tech">M.Tech</SelectItem>
                 <SelectItem value="B.Sc">B.Sc</SelectItem>
                 <SelectItem value="MCA">MCA</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={section} onValueChange={(v) => { setPage(1); setSection(v) }}>
+            <Select value={section || "all"} onValueChange={(v) => { setPage(1); setSection(v === "all" ? "" : v) }}>
               <SelectTrigger className="w-32">
                 <SelectValue placeholder="Section" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All</SelectItem>
+                <SelectItem value="all">All</SelectItem>
                 <SelectItem value="A">A</SelectItem>
                 <SelectItem value="B">B</SelectItem>
                 <SelectItem value="C">C</SelectItem>
