@@ -123,7 +123,7 @@ npm run dev
 
 ### Reports
 - `POST /api/reports/generate` - Generate exam report
-- `GET /api/reports/list` - Get student reports
+- `GET /api/reports/list` - Get students reports to understand 
 
 ## Database Schema
 
