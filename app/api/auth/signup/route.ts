@@ -23,8 +23,6 @@ export async function POST(request: NextRequest) {
       "classRollNumber",
       "branch",
       "course",
-      "leetcodeId",
-      "githubId",
     ]
     if (isStudent) {
       for (const key of requiredStudentFields) {

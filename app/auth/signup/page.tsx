@@ -49,7 +49,7 @@ export default function SignUpPage() {
 
     // Extended profile mandatory fields
     const required = [
-      'collegeName','universityRollNumber','section','classRollNumber','branch','course','leetcodeId','githubId'
+      'collegeName','universityRollNumber','section','classRollNumber','branch','course'
     ] as const
     for (const key of required) {
       if (!(formData as any)[key]) {
@@ -179,11 +179,11 @@ export default function SignUpPage() {
 
           {/* Row 4 */}
           <div className="space-y-2 min-w-0">
-            <Label htmlFor="leetcodeId" className="text-sm font-medium">LeetCode ID</Label>
+            <Label htmlFor="leetcodeId" className="text-sm font-medium">LeetCode ID (Optional)</Label>
             <Input id="leetcodeId" name="leetcodeId" type="text" placeholder="Enter your LeetCode ID" value={formData.leetcodeId} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2 min-w-0">
-            <Label htmlFor="githubId" className="text-sm font-medium">GitHub ID</Label>
+            <Label htmlFor="githubId" className="text-sm font-medium">GitHub ID (Optional)</Label>
             <Input id="githubId" name="githubId" type="text" placeholder="Enter your GitHub ID" value={formData.githubId} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
           </div>
           <div className="space-y-2 min-w-0 md:col-span-2">
