@@ -1,16 +1,17 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { AlertCircle, CheckCircle, Loader2 } from "lucide-react";
+import type React from "react"
+
+import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { AlertCircle, CheckCircle, Loader2 } from "lucide-react"
 
 export default function SignUpPage() {
-  const router = useRouter();
-
+  const router = useRouter()
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,44 +26,71 @@ export default function SignUpPage() {
     course: "",
     leetcodeId: "",
     githubId: "",
-  });
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+  })
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const inputClass =
-    "h-12 w-full rounded-xl border border-slate-300/60 bg-white/70 dark:bg-slate-900/50 backdrop-blur-lg placeholder:text-muted-foreground/60 text-base px-4 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 transition-all";
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+    setError("")
+    setSuccess("")
 
-    setError("");
-    setSuccess("");
+    // Validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+      setError("All fields are required")
+      return
+    }
 
-    if (!formData.firstName || !formData.lastName || !formData.email) {
-      setError("All required fields must be filled.");
-      return;
+    // Extended profile mandatory fields
+    const required = [
+      'collegeName','universityRollNumber','section','classRollNumber','branch','course','leetcodeId','githubId'
+    ] as const
+    for (const key of required) {
+      if (!(formData as any)[key]) {
+        setError(`Field ${key} is required`)
+        return
+      }
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
+      setError("Passwords do not match")
+      return
     }
 
-    setLoading(true);
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters")
+      return
+    }
+
+    // Format validations
+    const uniOk = /^[A-Za-z0-9\-_/]{4,20}$/.test(formData.universityRollNumber)
+    const classOk = /^\d{1,4}$/.test(formData.classRollNumber)
+    if (!uniOk) {
+      setError("Invalid university roll number format")
+      return
+    }
+    if (!classOk) {
+      setError("Invalid class roll number format")
+      return
+    }
+
+    setLoading(true)
 
     try {
-      const res = await fetch("/api/auth/signup", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
           role: "student",
           profile: {
             collegeName: formData.collegeName,
@@ -75,151 +103,140 @@ export default function SignUpPage() {
             githubId: formData.githubId,
           },
         }),
-      });
+      })
 
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || "Signup failed.");
-        return;
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.message || "Signup failed")
+        return
       }
 
-      setSuccess("Account created! Redirecting...");
-      setTimeout(() => router.push("/auth/login"), 2000);
-    } catch (error) {
-      setError("Something went wrong.");
+      setSuccess("Account created successfully! Redirecting to login...")
+      setTimeout(() => {
+        router.push("/auth/login")
+      }, 2000)
+    } catch (err) {
+      setError("An error occurred. Please try again.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen w-full flex items-start justify-center bg-gradient-to-br from-blue-400/40 via-indigo-300/40 to-purple-300/40 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-6">
-
-      {/* LEFT BEAUTIFUL HEADER */}
-      <div className="hidden lg:flex flex-col justify-center pr-16">
-        <h1 className="text-6xl font-extrabold bg-gradient-to-br from-blue-700 to-indigo-500 bg-clip-text text-transparent tracking-tight">
-          Welcome 👋
-        </h1>
-        <p className="text-lg mt-4 text-slate-600 dark:text-slate-300 max-w-sm">
-          Create your EduLearn account and start your smart learning journey.
-        </p>
+    <div className="min-h-screen w-full overflow-x-hidden px-4 sm:px-8 lg:px-12">
+      <div className="mb-8">
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 mb-4">
+          <span className="text-lg font-bold text-white">EL</span>
+        </div>
+        <h1 className="text-2xl font-bold text-foreground">Create Account</h1>
+        <p className="text-sm text-muted-foreground mt-2">Join EduLearn and start your learning journey</p>
       </div>
 
-      {/* RIGHT FORM SECTION */}
-      <div className="w-full max-w-4xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl p-10 rounded-3xl shadow-xl border border-white/30">
-
-        <div className="mb-10 text-center">
-          <h2 className="text-4xl font-bold text-slate-800 dark:text-white tracking-tight">
-            Create Account
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mt-2">
-            Fill the form below to continue
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-10">
-
-          {/* GRID FIELDS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {[
-              ["firstName", "First Name *"],
-              ["lastName", "Last Name *"],
-              ["email", "Email *"],
-              ["collegeName", "College *"],
-              ["universityRollNumber", "University Roll No *"],
-              ["section", "Section *"],
-              ["classRollNumber", "Class Roll No *"],
-              ["branch", "Branch *"],
-              ["course", "Course *"],
-              ["leetcodeId", "LeetCode ID"],
-              ["githubId", "GitHub ID"],
-            ].map(([name, label]) => (
-              <div key={name} className="flex flex-col space-y-2">
-                <Label htmlFor={name} className="font-medium text-slate-700 dark:text-slate-200">
-                  {label}
-                </Label>
-                <Input
-                  id={name}
-                  name={name}
-                  type="text"
-                  className={inputClass}
-                  placeholder={label}
-                  value={(formData as any)[name]}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </div>
-            ))}
-
-            {/* PASSWORD */}
-            <div className="flex flex-col space-y-2">
-              <Label htmlFor="password">Password *</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                className={inputClass}
-                placeholder="Enter password"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password *</Label>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                className={inputClass}
-                placeholder="Re-enter password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+      <form onSubmit={handleSubmit} className="space-y-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+          {/* Row 1 */}
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
+            <Input id="firstName" name="firstName" type="text" placeholder="Enter your first name" value={formData.firstName} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
+            <Input id="lastName" name="lastName" type="text" placeholder="Enter your last name" value={formData.lastName} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
+            <Input id="email" name="email" type="email" placeholder="Enter your email address" value={formData.email} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
           </div>
 
-          {/* ERROR/SUCCESS */}
-          {error && (
-            <div className="flex items-center gap-2 bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl">
-              <AlertCircle size={18} />
-              {error}
+          {/* Row 2 */}
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="collegeName" className="text-sm font-medium">College Name</Label>
+            <Input id="collegeName" name="collegeName" type="text" placeholder="Enter your college name" value={formData.collegeName} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="universityRollNumber" className="text-sm font-medium">University Roll Number</Label>
+            <Input id="universityRollNumber" name="universityRollNumber" type="text" placeholder="Enter your university roll number" value={formData.universityRollNumber} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="section" className="text-sm font-medium">Section</Label>
+            <Input id="section" name="section" type="text" placeholder="Enter your section" value={formData.section} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+
+          {/* Row 3 */}
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="classRollNumber" className="text-sm font-medium">Class Roll Number</Label>
+            <Input id="classRollNumber" name="classRollNumber" type="text" placeholder="Enter your class roll number" value={formData.classRollNumber} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="branch" className="text-sm font-medium">Branch</Label>
+            <Input id="branch" name="branch" type="text" placeholder="Enter your branch" value={formData.branch} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="course" className="text-sm font-medium">Course</Label>
+            <Input id="course" name="course" type="text" placeholder="Enter your course" value={formData.course} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+
+          {/* Row 4 */}
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="leetcodeId" className="text-sm font-medium">LeetCode ID</Label>
+            <Input id="leetcodeId" name="leetcodeId" type="text" placeholder="Enter your LeetCode ID" value={formData.leetcodeId} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0">
+            <Label htmlFor="githubId" className="text-sm font-medium">GitHub ID</Label>
+            <Input id="githubId" name="githubId" type="text" placeholder="Enter your GitHub ID" value={formData.githubId} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+          </div>
+          <div className="space-y-2 min-w-0 md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              <div className="space-y-2 min-w-0">
+                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <Input id="password" name="password" type="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+                <p className="text-xs text-muted-foreground">Minimum 8 characters</p>
+              </div>
+              <div className="space-y-2 min-w-0">
+                <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password</Label>
+                <Input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" value={formData.confirmPassword} onChange={handleChange} disabled={loading} className="w-full max-w-full border-blue-200 focus:border-blue-500" />
+              </div>
             </div>
+          </div>
+        </div>
+
+        {error && (
+          <div className="flex gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
+            <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-red-600">{error}</p>
+          </div>
+        )}
+
+        {success && (
+          <div className="flex gap-2 p-3 rounded-lg bg-green-50 border border-green-200">
+            <CheckCircle size={18} className="text-green-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-green-600">{success}</p>
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium"
+        >
+          {loading ? (
+            <>
+              <Loader2 size={18} className="mr-2 animate-spin" />
+              Creating Account...
+            </>
+          ) : (
+            "Create Account"
           )}
+        </Button>
+      </form>
 
-          {success && (
-            <div className="flex items-center gap-2 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl">
-              <CheckCircle size={18} />
-              {success}
-            </div>
-          )}
-
-          {/* SUBMIT BUTTON */}
-          <Button
-            type="submit"
-            className="w-full h-12 text-lg rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xl"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Creating...
-              </>
-            ) : (
-              "Create Account"
-            )}
-          </Button>
-        </form>
-
-        <p className="text-center mt-6 text-slate-600 dark:text-slate-400">
-          Already have an account?{" "}
-          <Link href="/auth/login" className="text-blue-600 font-semibold hover:underline">
-            Login
-          </Link>
-        </p>
-      </div>
+      <p className="text-center text-sm text-muted-foreground mt-6">
+        Already have an account?{" "}
+        <Link href="/auth/login" className="text-blue-600 hover:text-blue-700 font-medium">
+          Login here
+        </Link>
+      </p>
     </div>
-  );
+  )
 }
