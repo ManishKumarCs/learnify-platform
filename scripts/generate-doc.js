@@ -34,9 +34,9 @@ function sectionAgenda() {
   return [
     H2('Agenda and Roles'),
     ...Bullets([
-      'Manish: Authentication, RBAC, Security, Middleware',
+      'Manish: Admin Portal (CRUD, Settings, Email/Reminders)',
       'Akash: Exam Engine, Reports, ML Integration',
-      'Manoj: Admin CRUD, Email',
+      'Manoj: Authentication & Notifications',
       'Shiva: Student Dashboard & UX',
       'Amit: QA, CI, Documentation, Seed Data',
       'Somdatt: UI Polish, Accessibility, Content',
@@ -125,13 +125,13 @@ function sectionDemoScript() {
 function sectionMemberScripts() {
   return [
     H2('Member-by-Member Speaking Scripts'),
-    H3('Manish Kumar — Auth, RBAC, Security, Middleware'),
-    P('Core message: We secure the platform using JWT and RBAC, ensuring only the right roles access sensitive routes.'),
+    H3('Manish Kumar — Admin Portal (CRUD, Settings, Email/Reminders)'),
+    P('Core message: I own the admin portal: CRUD flows for students, exams, and questions; platform settings; and email/reminder triggers for operations.'),
     ...Bullets([
-      'Explain JWT lifecycle: issue on login → attach to requests → verify in middleware',
-      'Show how `middleware.ts` protects /admin and /student routes',
-      'Describe RBAC checks in API handlers (role gates)',
-      'Mention security utils: input validation, logging, error handling',
+      'Walk through admin CRUD: students/exams/questions under app/admin/*',
+      'Demonstrate platform settings management and defaults',
+      'Show email/reminder triggers (e.g., assignment reminders) and templates',
+      'Discuss validations and operational safeguards in admin actions',
     ]),
     H3('Akash Kumar — Exam Engine, Reports, ML'),
     P('Core message: The exam engine provides a realistic attempt experience with analytics and future ML enhancements.'),
@@ -141,11 +141,11 @@ function sectionMemberScripts() {
       'Explain reports: category breakdowns, history comparison',
       'Outline ML plan: transform attempt data → insights → recommendations',
     ]),
-    H3('Manoj Kumar — Admin CRUD, Email'),
-    P('Core message: Admins can manage entities at scale and trigger communication when needed.'),
+    H3('Manoj Kumar — Authentication & Notifications'),
+    P('Core message: I focus on secure authentication, RBAC enforcement, and notification wiring.'),
     ...Bullets([
-      'Show CRUD flows for students/exams/questions',
-      'Demonstrate settings, roles, and validations',
+      'Explain JWT lifecycle: issue on login → verify in middleware',
+      'Demonstrate RBAC protections in middleware and API handlers',
       'Email triggers: registration confirmations, password resets, result notices',
     ]),
     H3('Shiva Jadoun — Student Dashboard & UX'),

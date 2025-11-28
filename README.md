@@ -271,9 +271,9 @@ This section documents the team members, their academic CPI, assigned responsibi
 
 | Name | Primary Modules | Key Responsibilities |
 |---|---|---|
-| Manish Kumar | Authentication, RBAC, Security, Middleware | Implement auth flows and JWT handling, protect routes via `middleware.ts`, enforce RBAC on API routes, harden security utilities in `lib/security.ts` and logging in `lib/logger.ts`. |
+| Manish Kumar | Admin Portal (CRUD, Settings, Email/Reminders) | Own the admin dashboard: CRUD for students/exams/questions under `app/admin/*`, platform settings, and email/reminder triggers (e.g., assignment reminders). |
 | Akash Kumar | Exam Engine, Reports, ML Integration | Build exam attempt flows (`app/student/exam/[id]`), scoring and persistence models, integrate analysis from `lib/ml-analysis.ts`, generate visual reports in `app/student/reports/*`. |
-| Manoj Kumar | Admin Dashboard CRUD, Email | Implement admin CRUD for students/exams/questions under `app/admin/*`, wire email notifications via `lib/email-service.ts` and `lib/mail.ts`. |
+| Manoj Kumar | Authentication & Notifications | Implement auth flows and JWT handling, protect routes via `middleware.ts`, assist with email/notification wiring via `lib/email-service.ts` and `lib/mail.ts`. |
 | Shiva Jadoun | Student Dashboard & UX | Complete student dashboard and profile (`app/student/*`), learning paths, integrate UI components from `components/ui/*`, ensure responsive UX. |
 | Amit Saraswat | QA, Test Data, CI | Prepare seed/test data, write basic tests where applicable, set up CI (GitHub Actions) for lint/build, maintain documentation and `.env.example`. |
 | Somdatt Verma | UI Polish, Accessibility, Content | Refine styling and responsiveness, a11y checks, image/content population in `public/`, assist with component cleanup and bug bashes. |
@@ -295,9 +295,9 @@ This section documents the team members, their academic CPI, assigned responsibi
 
 ### Near-Term Tasks by Member
 
-- Manish Kumar: Secure auth endpoints, finalize JWT issuance/verification, RBAC guards.
+- Manish Kumar: Finalize admin portal (CRUD for students/exams/questions), settings, and email/reminder flows.
 - Akash Kumar: Exam attempt save/restore, scoring logic, connect reports to ML outputs.
-- Manoj Kumar: Admin CRUD APIs and pages (Students/Exams/Questions), email triggers.
+- Manoj Kumar: Secure auth endpoints, finalize JWT issuance/verification, RBAC guards; assist email triggers.
 - Shiva Jadoun: Hook student pages to APIs, dashboards, and learning path UI states.
 - Amit Saraswat: Create `.env.example`, add GitHub Actions workflow, populate seed data.
 - Somdatt Verma: Responsive polish, a11y passes, content assets, and bug triage.
