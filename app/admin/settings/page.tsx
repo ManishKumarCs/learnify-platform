@@ -12,8 +12,8 @@ import { CheckCircle } from "lucide-react"
 export default function SettingsPage() {
   const [saved, setSaved] = useState(false)
   const [settings, setSettings] = useState({
-    platformName: "EduLearn",
-    adminEmail: "admin@edulearn.com",
+    platformName: "e-learnify",
+    adminEmail: "admin@e-learnify.com",
     maxExamDuration: "120",
     passingScore: "70",
     enableNotifications: true,

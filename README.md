@@ -1,4 +1,4 @@
-# EduLearn - Professional E-Learning Platform
+# e-learnify - Professional E-Learning Platform
 
 A comprehensive, AI-powered e-learning platform built with Next.js, featuring intelligent exam analysis, role-based access control, and personalized learning recommendations.
 
@@ -98,20 +98,20 @@ cp .env.example .env.local
 \`\`\`
 
 4. Run the development server
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Test Credentials
 
 ### Admin Account
-- Email: `admin@edulearn.com`
+- Email: `admin@e-learnify.com`
 - Password: `admin123`
 
 ### Student Account
-- Email: `student@edulearn.com`
+- Email: `student@e-learnify.com`
 - Password: `student123`
 
 ## API Endpoints
@@ -128,7 +128,7 @@ npm run dev
 ## Database Schema
 
 ### Users Collection
-\`\`\`typescript
+```typescript
 {
   _id: ObjectId,
   firstName: string,
@@ -139,10 +139,10 @@ npm run dev
   createdAt: Date,
   updatedAt: Date
 }
-\`\`\`
+```
 
 ### Exams Collection
-\`\`\`typescript
+```typescript
 {
   _id: ObjectId,
   title: string,
@@ -153,10 +153,10 @@ npm run dev
   createdBy: ObjectId,
   createdAt: Date
 }
-\`\`\`
+```
 
 ### Reports Collection
-\`\`\`typescript
+```typescript
 {
   _id: ObjectId,
   studentId: ObjectId,
@@ -168,7 +168,7 @@ npm run dev
   recommendations: string[],
   generatedAt: Date
 }
-\`\`\`
+```
 
 ## ML Analysis Features
 
@@ -203,18 +203,18 @@ To enable email:
 3. Set environment variables in Vercel dashboard
 4. Deploy
 
-\`\`\`bash
+```bash
 vercel deploy
-\`\`\`
+```
 
 ### Environment Variables Required
 
-\`\`\`
+```
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 NEXT_PUBLIC_API_URL=your_api_url
 SENDGRID_API_KEY=your_sendgrid_key
-\`\`\`
+```
 
 ## Future Enhancements
 
@@ -243,7 +243,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ## Support
 
-For support, email support@edulearn.com or open an issue on GitHub.
+For support, email support@e-learnify.com or open an issue on GitHub.
 
 ## Acknowledgments
 

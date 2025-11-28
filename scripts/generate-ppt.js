@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const PptxGenJS = require('pptxgenjs');
 
-const OUT_PPT = path.join(__dirname, '..', 'docs', 'learnify-platform-presentation.pptx');
+const OUT_PPT = path.join(__dirname, '..', 'docs', 'e-learnify-presentation.pptx');
 const SHOTS_DIR = path.join(__dirname, '..', 'docs', 'screenshots');
 
 function hasShot(name) {
@@ -13,7 +13,7 @@ function hasShot(name) {
 
 function addTitleSlide(ppt) {
   const slide = ppt.addSlide();
-  slide.addText('EduLearn - Professional E-Learning Platform', { x: 0.5, y: 1.0, w: 9, h: 1.0, fontSize: 32, bold: true, color: '203040' });
+  slide.addText('e-learnify - Professional E-Learning Platform', { x: 0.5, y: 1.0, w: 9, h: 1.0, fontSize: 32, bold: true, color: '203040' });
   slide.addText('AI-powered exams, insights, and personalized learning', { x: 0.5, y: 2.1, w: 9, h: 0.6, fontSize: 18, color: '404860' });
   slide.addText('Team: Manish Kumar, Akash Kumar, Manoj Kumar, Shiva Jadoun, Amit Saraswat, Somdatt Verma', { x: 0.5, y: 3.0, w: 9, h: 0.8, fontSize: 14, color: '505a73' });
 }

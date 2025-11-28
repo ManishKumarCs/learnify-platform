@@ -1,4 +1,4 @@
-# EduLearn Platform - Architecture Documentation
+# e-learnify Platform - Architecture Documentation
 
 ## System Architecture
 

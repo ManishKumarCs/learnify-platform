@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export function Footer() {
   return (
@@ -10,7 +10,7 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500">
                 <span className="text-sm font-bold text-white">EL</span>
               </div>
-              <span className="font-bold text-foreground">EduLearn</span>
+              <span className="font-bold text-foreground">e-learnify</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Empowering students through intelligent assessment and personalized learning.
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">© 2025 EduLearn. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground"> 2025 e-learnify. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Twitter
@@ -95,3 +95,8 @@ export function Footer() {
     </footer>
   )
 }
+
+
+
+
+

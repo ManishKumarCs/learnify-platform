@@ -13,7 +13,7 @@ export default function AdminProfilePage() {
   const [formData, setFormData] = useState({
     firstName: "Admin",
     lastName: "User",
-    email: "admin@edulearn.com",
+    email: "admin@e-learnify.com",
     phone: "+1 (555) 123-4567",
     department: "Education Technology",
     bio: "Platform administrator managing exams and student progress.",

@@ -50,7 +50,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:640px; margin:0 auto;">
     <tr>
       <td>
-        <div style="text-align:center; margin-bottom:16px; color:#0f172a; font-weight:800; font-size:22px;">EduLearn</div>
+        <div style="text-align:center; margin-bottom:16px; color:#0f172a; font-weight:800; font-size:22px;">e-learnify</div>
         <div class="card" style="margin-bottom:16px;">
           <p style="margin:0 0 8px 0; font-size:14px;" class="muted">Hi ${name},</p>
           <h1 style="margin:4px 0 12px 0; font-size:20px; color:#0f172a;">You have a pending test assignment</h1>

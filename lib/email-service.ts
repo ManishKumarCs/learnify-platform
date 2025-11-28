@@ -28,7 +28,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 export async function sendRegistrationEmail(email: string, firstName: string): Promise<boolean> {
   return sendEmail({
     to: email,
-    subject: "Welcome to EduLearn!",
+    subject: "Welcome to e-learnify!",
     template: "registration",
     data: { firstName, email },
   })
@@ -37,7 +37,7 @@ export async function sendRegistrationEmail(email: string, firstName: string): P
 export async function sendPasswordResetEmail(email: string, resetLink: string): Promise<boolean> {
   return sendEmail({
     to: email,
-    subject: "Reset Your EduLearn Password",
+    subject: "Reset Your e-learnify Password",
     template: "password-reset",
     data: { email, resetLink },
   })

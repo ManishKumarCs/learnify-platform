@@ -45,7 +45,7 @@ export function AdminSidebar({ open, onToggle }: AdminSidebarProps) {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10">
               <span className="text-sm font-bold text-white">EL</span>
             </div>
-            <span className="font-semibold text-lg tracking-wide">EduLearn</span>
+            <span className="font-semibold text-lg tracking-wide">e-learnify</span>
           </div>
         )}
         <button onClick={onToggle} className="p-1 hover:bg-blue-700 rounded-lg transition-colors">

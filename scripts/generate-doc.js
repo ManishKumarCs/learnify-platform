@@ -1,10 +1,10 @@
 // Generate a comprehensive Word document with deep explanations, member scripts, and Q&A
-// Output: docs/learnify-platform-presentation-guide.docx
+// Output: docs/e-learnify-presentation-guide.docx
 const fs = require('fs');
 const path = require('path');
 const { Document, Packer, Paragraph, HeadingLevel, TextRun, Table, TableRow, TableCell } = require('docx');
 
-const OUT_DOC = path.join(__dirname, '..', 'docs', 'learnify-platform-presentation-guide.docx');
+const OUT_DOC = path.join(__dirname, '..', 'docs', 'e-learnify-presentation-guide.docx');
 
 function H(text) {
   return new Paragraph({ text, heading: HeadingLevel.HEADING_1 });
@@ -24,7 +24,7 @@ function Bullets(items) {
 
 function sectionIntro() {
   return [
-    H('EduLearn – Presentation Guide (Internal)') ,
+    H('e-learnify – Presentation Guide (Internal)') ,
     P('Purpose: Equip all 6 members with a complete script, technical details, and Q&A to deliver a professional presentation.'),
     P('Audience: Faculty/Examiners. Duration: ~15–20 minutes.'),
   ];
@@ -209,7 +209,7 @@ function sectionAppendix() {
     H2('Appendix: References'),
     ...Bullets([
       'Code locations: app/* (pages), components/*, lib/*, models/*, middleware.ts',
-      'Presentation: docs/learnify-platform-presentation.pptx',
+      'Presentation: docs/e-learnify-presentation.pptx',
       'Screenshots: docs/screenshots/*',
     ]),
   ];

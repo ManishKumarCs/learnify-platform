@@ -15,7 +15,7 @@ export function Header() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500">
             <span className="text-sm font-bold text-white">EL</span>
           </div>
-          <span className="text-xl font-bold text-foreground">EduLearn</span>
+          <span className="text-xl font-bold text-foreground">e-learnify</span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

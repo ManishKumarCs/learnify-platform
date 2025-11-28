@@ -1,4 +1,4 @@
-# EduLearn Platform - Deployment Guide
+# e-learnify Platform - Deployment Guide
 
 ## Overview
 This is a production-ready AI-powered adaptive e-learning platform built with Next.js, featuring ML-based student analysis, personalized learning paths, and comprehensive analytics.
@@ -53,7 +53,7 @@ OPENAI_API_KEY=your_openai_api_key
 
 # Email Service
 SENDGRID_API_KEY=your_sendgrid_api_key
-SENDGRID_FROM_EMAIL=noreply@edulearn.com
+SENDGRID_FROM_EMAIL=noreply@e-learnify.com
 
 # Monitoring
 NEXT_PUBLIC_MONITORING_URL=your_monitoring_service_url
@@ -61,6 +61,7 @@ NEXT_PUBLIC_MONITORING_URL=your_monitoring_service_url
 # App URLs
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000/auth/callback
+```
 \`\`\`
 
 ## Installation

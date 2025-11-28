@@ -130,7 +130,7 @@ export default function SignUpPage() {
           <span className="text-lg font-bold text-white">EL</span>
         </div>
         <h1 className="text-2xl font-bold text-foreground">Create Account</h1>
-        <p className="text-sm text-muted-foreground mt-2">Join EduLearn and start your learning journey</p>
+        <p className="text-sm text-muted-foreground mt-2">Join e-learnify and start your learning journey</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 w-full">

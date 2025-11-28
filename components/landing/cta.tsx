@@ -9,7 +9,7 @@ export function CTA() {
         <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-12 text-center">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">Ready to Transform Your Learning?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join thousands of students who have discovered their true potential with EduLearn.
+            Join thousands of students who have discovered their true potential with e-learnify.
           </p>
           <Button
             asChild

@@ -76,7 +76,7 @@ export default function LoginPage() {
           <span className="text-lg font-bold text-white">EL</span>
         </div>
         <h1 className="text-2xl font-bold text-foreground">Welcome Back</h1>
-        <p className="text-sm text-muted-foreground mt-2">Login to your EduLearn account</p>
+        <p className="text-sm text-muted-foreground mt-2">Login to your e-learnify account</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

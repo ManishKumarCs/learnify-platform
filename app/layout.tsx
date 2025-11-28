@@ -5,8 +5,8 @@ import './globals.css'
  
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'e-learnify',
+  description: 'e-learnify - AI-powered e-learning platform',
   generator: 'v0.app',
   icons: {
     icon: [
